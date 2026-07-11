@@ -11,6 +11,7 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from prompts import SYSTEM_PROMPT
 from langgraph.checkpoint.memory import InMemorySaver
+from retriever import get_relevant_documents
 
 load_dotenv()
 
@@ -18,22 +19,6 @@ load_dotenv()
 # LLM
 llm = ChatGoogleGenerativeAI(
     model="gemini-3.1-flash-lite",
-)
-
-
-# Vector Store
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
-
-vectorstore = Chroma(
-    persist_directory="vector_store",
-    embedding_function=embeddings,
-    collection_name="clothing_store_faq",
-)
-
-retriever = vectorstore.as_retriever(
-    search_kwargs={"k": 7}
 )
 
 
@@ -48,7 +33,7 @@ def retrieve(state: State):
 
     question = state["messages"][-1].content
 
-    docs = retriever.invoke(question)
+    docs = get_relevant_documents(question,top_k=8)
 
     return {
         "documents": docs,

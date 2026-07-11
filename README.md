@@ -65,7 +65,8 @@ The chatbot is implemented using a simple LangGraph workflow consisting of two n
 
 ### Retrieve Node
 
-- Retrieves the top relevant FAQ documents from ChromaDB.
+- Retrieves the top 5 relevant FAQ documents for each category from ChromaDB.
+- Rerank the documents to get final 8 documents using Cross Encoder
 
 ### Generate Node
 
@@ -98,7 +99,7 @@ Responses are streamed token-by-token from LangGraph to the Streamlit frontend, 
 ├── app.py             # Streamlit frontend
 ├── graph.py           # LangGraph workflow
 ├── ingest.py          # Markdown → Documents → ChromaDB
-├── main.py            # Application entry
+├── retriever.py       # Retrieve documents from Vector DB
 ├── prompts.py         # System prompt
 ├── styles.py          # Streamlit styling
 ├── pyproject.toml
@@ -116,6 +117,7 @@ Responses are streamed token-by-token from LangGraph to the Streamlit frontend, 
 - Google Gemini 3.1 Flash Lite
 - ChromaDB
 - sentence-transformers/all-MiniLM-L6-v2
+- cross-encoder/ms-marco-MiniLM-L-6-v2
 - Streamlit
 
 ---

@@ -124,14 +124,24 @@ if user_input:
         st.text(user_input)
 
     with st.chat_message('assistant'):
+        spinner = st.spinner("Searching FAQ of The Clothing Store...")
+        spinner.__enter__()
 
-        ai_message = st.write_stream(
-            message_chunk.content[0]["text"] for message_chunk, metadata in chatbot.stream(
+        def response_stream():
+            spinner_hidden = False
+            for message_chunk, metadata in chatbot.stream(
                 {'messages': [HumanMessage(content=user_input)]},
-                config= CONFIG(current_thread_id),
-                stream_mode= 'messages'
-            )
-            if message_chunk.content and not isinstance(message_chunk.content, str)
-        )
+                config=CONFIG(current_thread_id),
+                stream_mode='messages'
+            ):
+                if message_chunk.content and not isinstance(message_chunk.content, str):
+                    if not spinner_hidden:
+                        spinner.__exit__(None, None, None)
+                        spinner_hidden = True
+                    yield message_chunk.content[0]["text"]
+            if not spinner_hidden:
+                spinner.__exit__(None, None, None)
+
+        ai_message = st.write_stream(response_stream())
 
     st.session_state['message_history'].append({'role': 'assistant', 'content': ai_message})
