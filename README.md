@@ -12,6 +12,35 @@ https://customer-support-rag--llm-langchain-langgraph-gemini-app-befpl.streamlit
 
 # Workflow
 
+```mermaid
+flowchart TD
+
+A[The Clothing Store FAQ] --> B[Structured Extraction : category, question, answer]
+B --> D[Document Creation]
+D --> E[Embeddings MiniLM-L6-v2]
+E --> F[Chroma Vector Store]
+
+Q[User Query] --> R[Retrieval Node]
+Q --> F
+R --> R1[Similarity Retriever Category1]
+R --> R2[Similarity Retriever Category2]
+R --> R3[Similarity Retriever Category3]
+
+R1 --> RALL[Merge]
+R2 --> RALL
+R3 --> RALL
+
+RALL --> DEDUP[Deduplication]
+DEDUP --> CE[Cross Encoder]
+CE --> CONTEXT[Top Docs]
+
+CONTEXT --> G[Generation Node]
+
+G --> LLM[LLM: Gemini 3.1 flash lite + System Prompt]
+
+LLM --> OUTPUT[Answer]
+```
+
 ## 1. Knowledge Base
 
 A synthetic FAQ knowledge base was created for a fictional clothing company called **The Clothing Store (TCS)**.
