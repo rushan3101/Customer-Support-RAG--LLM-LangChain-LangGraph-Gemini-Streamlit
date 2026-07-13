@@ -21,10 +21,10 @@ D --> E[Embeddings MiniLM-L6-v2]
 E --> F[Chroma Vector Store]
 
 Q[User Query] --> R[Retrieval Node]
-Q --> F
-R --> R1[Similarity Retriever Category1]
-R --> R2[Similarity Retriever Category2]
-R --> R3[Similarity Retriever Category3]
+R --> V[Chroma Vector Store]
+V --> R1[Similarity Retriever Category1]
+V --> R2[Similarity Retriever Category2]
+V --> R3[Similarity Retriever Category3]
 
 R1 --> RALL[Merge]
 R2 --> RALL
