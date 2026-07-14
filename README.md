@@ -5,7 +5,7 @@ Streamlit-based customer support chatbot for a clothing store. The app uses a re
 ## Demo
 
 Streamlit app URL: \
-https://customer-support-rag--llm-langchain-langgraph-gemini-app-befpl.streamlit.app/
+https://customer-support-rag--llm-langchain-langgraph-gemini.streamlit.app/
 
 ![Project 1 Demo](src/CustomerSupportRAG_Demo.gif)
 
@@ -181,9 +181,7 @@ streamlit run app.py
 
 ## Live Hosted App URL
 
-Replace this with your deployed Streamlit app link:
-
-https://customer-support-rag--llm-langchain-langgraph-gemini-app-befpl.streamlit.app/
+https://customer-support-rag--llm-langchain-langgraph-gemini.streamlit.app/
 
 ## Testing Instructions
 
