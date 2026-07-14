@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        cache_folder="./cache"
     )
 
 vectorstore = Chroma(
@@ -16,7 +17,7 @@ vectorstore = Chroma(
     collection_name="clothing_store_faq",
 )
 
-reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2", cache_folder="./cache")
 
 def get_relevant_documents(query, top_k=8):
 
