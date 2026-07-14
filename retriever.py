@@ -2,6 +2,9 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from sentence_transformers import CrossEncoder
+from dotenv import load_dotenv
+
+load_dotenv()
 
 embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
